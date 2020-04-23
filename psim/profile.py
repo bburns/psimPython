@@ -1,6 +1,6 @@
 from addict import Dict
 
-def initialize(sim):
+def initialize(params):
     profile = Dict()
     # Initialize profile values
     profile.timeWalls = 0
@@ -9,5 +9,5 @@ def initialize(sim):
     profile.timeDisplay = 0
     profile.timeIntegrate = 0
     # return profile
-    sim.profile = profile
+    params.profile = profile
     

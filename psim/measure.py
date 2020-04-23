@@ -3,19 +3,19 @@ from addict import Dict
 from constants import *
 
 
-def initialize(sim):
+def initialize(params):
     measures = Dict()
     # initialize cumulative variables
     measures.deltaMomentum = 0
     measures.wallCollisions = 0
     measures.gasCollisions = 0
-    sim.measures = measures
+    params.measures = measures
 
 
-def update(sim):
-    particles = sim.particles
-    measures = sim.measures
-    samples = sim.samples
+def update(params):
+    particles = params.particles
+    measures = params.measures
+    samples = params.samples
 
     # import random
     # measures.pressure = random.random()
@@ -26,14 +26,14 @@ def update(sim):
     # pressure [atm] is averaged over all surfaces
 
     # tic()
-    # measures.pressure = measures.deltaMomentum / sim.box.area / samples.sampleTime * pascalsPerMascal * atmospheresPerPascal # [atm]
-    measures.pressure = measures.deltaMomentum / sim.box.area / samples.sampleTime * atmospheresPerMascal # [atm]
+    # measures.pressure = measures.deltaMomentum / params.box.area / samples.sampleTime * pascalsPerMascal * atmospheresPerPascal # [atm]
+    measures.pressure = measures.deltaMomentum / params.box.area / samples.sampleTime * atmospheresPerMascal # [atm]
     # numericDensity = self.nparticles / self.box.volume # [Atoms/A^3]
     # # speedSquared = sum(particles.velocity .* particles.velocity, 2) # v squared = (vx)^2 + (vy)^2 + (vz)^2    [array, summed across rows]
     speedSquared = np.sum(np.square(particles.velocity), axis=1) # v squared = (vx)^2 + (vy)^2 + (vz)^2    [array, summed across rows]
     measures.potentialEnergy = np.sum(particles.potential) # [Moules]
     measures.kineticEnergy = 0.5 * np.dot(speedSquared, particles.mass) # [Moules] # sum of 0.5 * particles.mass[i] * speedSquared[i]
-    measures.temperature = 2.0 / 3.0 * measures.kineticEnergy / kb / sim.nparticles # [K] . dif for diatomic gas?
+    measures.temperature = 2.0 / 3.0 * measures.kineticEnergy / kb / params.nparticles # [K] . dif for diatomic gas?
     measures.totalEnergy = measures.kineticEnergy + measures.potentialEnergy # [Moules]
     # print(measures)
 
@@ -73,8 +73,8 @@ def update(sim):
 
     # profile.timeProperties += toc()
 
-def finalize(sim):
-    measures = sim.measures
+def finalize(params):
+    # measures = params.measures
     # #. why avg over entire dataset? want steady state
     # averagePressure = np.mean(dataPressure) # [atm]
     # stdDevPressure = np.std(dataPressure)

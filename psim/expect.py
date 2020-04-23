@@ -8,21 +8,21 @@ from addict import Dict
 from constants import *
 
 
-def initialize(sim):
+def initialize(params):
 
     expected = Dict()
 
     #. some of these are per species - how do? get avg over species or sum them?
-    # expected.pressure = sim.nparticles * kT / sim.box.volume * atmospheresPerMascal # [atm]
+    # expected.pressure = params.nparticles * kT / params.box.volume * atmospheresPerMascal # [atm]
     
     # get sum over species
     pressure = 0
-    for species in sim.species:
-        pressure += species.quantity * species.kT / sim.box.volume * atmospheresPerMascal # [atm]
-        # print(species.quantity, species.kT, sim.box.volume, pressure)
+    for species in params.species:
+        pressure += species.quantity * species.kT / params.box.volume * atmospheresPerMascal # [atm]
+        # print(species.quantity, species.kT, params.box.volume, pressure)
     expected.pressure = pressure # ok?
 
-    # expected.averageSpacing = (sim.box.volume / sim.nparticles) ** (1 / sim.ndimensions) # [A]
+    # expected.averageSpacing = (params.box.volume / params.nparticles) ** (1 / params.ndimensions) # [A]
     # expected.speedRms = math.sqrt(3 * kT / atomMass) # [A/ps] #. init? per species yes?
     # expected.collisionRate = 4 * math.pi * math.sqrt(2) * atomRadius**2 * nparticles * expected.speedRms / box.volume * 1000 # [collisions/mlc/fs]
     # expected.meanFreeTime = 1 / expected.collisionRate # [ps]
@@ -33,7 +33,7 @@ def initialize(sim):
     # expected.massDensity = nparticles * atomMass / box.volume * kilogramsPerDalton / cubicMetersPerMolvo # [kg/m^3]
 
     # expected.pressure = 1
-    expected.temperature = sim.species[0].temperature #. handle multiple species
+    expected.temperature = params.species[0].temperature #. handle multiple species
     # expected.wallCollisions = 100 #...
     # expected.gasCollisions = 100 #...
 
@@ -54,4 +54,4 @@ def initialize(sim):
     #     expectedSpeedDistribution1d = nparticles/2 * sqrt (atomMass/(2*pi*kT)) * exp(-0.5 * atomMass * s2.^2 / kT)
 
     # return expected
-    sim.expected = expected
+    params.expected = expected

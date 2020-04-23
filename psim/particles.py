@@ -7,10 +7,10 @@ from addict import Dict
 from constants import *
 
 
-def getNParticles(sim):
+def getNParticles(params):
     # get total particles
     nparticles = 0
-    for species in sim.species:
+    for species in params.species:
         nparticles += species.quantity
     return nparticles
 
@@ -119,14 +119,14 @@ def shiftParticles(position, radius):
     print('    done.')
 
 
-# def getParticles(sim):
-def initialize(sim):
+# def getParticles(params):
+def initialize(params):
     
-    box = sim.box
-    nparticles = getNParticles(sim)
+    box = params.box
+    nparticles = getNParticles(params)
     ndimensions = box.ndimensions
-    sim.nparticles = nparticles # save for later
-    sim.ndimensions = ndimensions
+    params.nparticles = nparticles # save for later
+    params.ndimensions = ndimensions
 
     # initialize arrays
     particles = Dict()
@@ -138,7 +138,7 @@ def initialize(sim):
     particles.color = [' '] * nparticles
 
     i = 0 # particle number
-    for species in sim.species:
+    for species in params.species:
         # print(species)
         quantity = species.quantity # number of atoms of this species
         species.kT = kb * species.temperature # average thermal energy [Moules]
@@ -155,23 +155,23 @@ def initialize(sim):
         i += quantity
 
     # make sure particles aren't colliding with each other...
-    # if sim.shiftParticles:
-    if sim.potentialType != 'none':
+    # if params.shiftParticles:
+    if params.potentialType != 'none':
         shiftParticles(particles.position, particles.radius)
     
     # xRange = range(0, boxSize[0], nxSamples)
 
     # return particles
-    sim.particles = particles
+    params.particles = particles
 
 
-def update(sim):
+def update(params):
 
     # get potential energy of particles
-    particles = sim.particles
-    potential = np.zeros(sim.nparticles)
+    particles = params.particles
+    potential = np.zeros(params.nparticles)
     
-    if sim.potentialType == 'Lennard-Jones':
+    if params.potentialType == 'Lennard-Jones':
         # Lennard-Jones 6-12 ideal gas potential
         # molecules appear neutral at large distances, become attractive closer, then repulsive close up
         #    U = 4 * epsilon * [ (sigma/r)^12 - (sigma/r)^6 ] (experimentally determined)
@@ -181,9 +181,9 @@ def update(sim):
         #    Water: epsilon = 1.08e-21 J        sigma = 3.2 A
         epsilon = 99.6 # [Moules] well depth
         sigma = 3.4 # [Angstroms] internuclear distance where potential U is zero
-        force = np.zeros((sim.nparticles, sim.ndimensions))
-        for i in range(sim.nparticles - 1):
-            for j in range(i + 1, sim.nparticles):
+        force = np.zeros((params.nparticles, params.ndimensions))
+        for i in range(params.nparticles - 1):
+            for j in range(i + 1, params.nparticles):
                 distanceVector = particles.position[i,:] - particles.position[j,:]
                 distance = np.linalg.norm(distanceVector)
                 sigmaDistance = sigma / distance
@@ -196,4 +196,4 @@ def update(sim):
             particles.acceleration[i,:] = force[i,:] / particles.mass[i]
 
     # save potential
-    sim.particles.potential = potential
+    params.particles.potential = potential

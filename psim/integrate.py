@@ -5,40 +5,40 @@ Integrate particle positions and handle wall and particle collisions
 import numpy as np
 
 
-def update(sim):
-    measures = sim.measures
-    particles = sim.particles
+def update(params):
+    measures = params.measures
+    particles = params.particles
 
-    if sim.potentialType == 'none': # no acceleration
-        particles.position += (sim.timedelta * particles.velocity)
+    if params.potentialType == 'none': # no acceleration
+        particles.position += (params.timedelta * particles.velocity)
 
-    elif sim.potentialType == 'Lennard-Jones':
+    elif params.potentialType == 'Lennard-Jones':
         # # Verlet Algorithm
         # # we always need the last two values of position to produce the next one...
         # # [Thijssen p475]
         # # x(t+h) = 2x(t) - x(t-h) + h^2*a(x(t))
         # # tic()
         # positionNew = None
-        # if sim.ntimestep == 0:
+        # if params.ntimestep == 0:
         #     # for first step, don't have previous position yet
-        #     positionNew = particles.position + (sim.timedelta * particles.velocity) + (0.5 * sim.timedelta ** 2 * particles.acceleration)
-        #     particles.velocity = particles.velocity + sim.timedelta * particles.acceleration
+        #     positionNew = particles.position + (params.timedelta * particles.velocity) + (0.5 * params.timedelta ** 2 * particles.acceleration)
+        #     particles.velocity = particles.velocity + params.timedelta * particles.acceleration
         # else:
-        #     positionNew = 2 * particles.position - sim.positionOld + sim.timedelta ** 2 * particles.acceleration
-        #     particles.velocity = (positionNew - sim.positionOld) / 2 / sim.timedelta
-        # sim.positionOld = particles.position
+        #     positionNew = 2 * particles.position - params.positionOld + params.timedelta ** 2 * particles.acceleration
+        #     particles.velocity = (positionNew - params.positionOld) / 2 / params.timedelta
+        # params.positionOld = particles.position
         # particles.position = positionNew
         # # profile.timeIntegrate += toc()
-        if sim.ntimestep == 0:
-            particles.position += particles.velocity * sim.timedelta
-            # particles.velocity += particles.acceleration * sim.timedelta
-            sim.oldAcceleration = particles.acceleration
+        if params.ntimestep == 0:
+            particles.position += particles.velocity * params.timedelta
+            # particles.velocity += particles.acceleration * params.timedelta
+            params.oldAcceleration = particles.acceleration
         else:
-            particles.position += particles.velocity * sim.timedelta + 0.5 * particles.acceleration * sim.timedelta**2
-            particles.velocity += 0.5 * (sim.oldAcceleration + particles.acceleration) * sim.timedelta
-            sim.oldAcceleration = particles.acceleration
+            particles.position += particles.velocity * params.timedelta + 0.5 * particles.acceleration * params.timedelta**2
+            particles.velocity += 0.5 * (params.oldAcceleration + particles.acceleration) * params.timedelta
+            params.oldAcceleration = particles.acceleration
     else:
-        raise ValueError("Unknown potentialType " + sim.potentialType)
+        raise ValueError("Unknown potentialType " + params.potentialType)
 
 
     #-----------------------------------------------------------------------------------
@@ -48,16 +48,16 @@ def update(sim):
     # Flip momentum component normal to wall
     # These are cumulative variables, cleared after each sample taken. 
     # tic()
-    for i in range(sim.nparticles):
-        for j in range(sim.ndimensions):
+    for i in range(params.nparticles):
+        for j in range(params.ndimensions):
             if particles.position[i, j] < particles.radius[i]:
                 particles.velocity[i, j] = -particles.velocity[i, j]
                 particles.position[i, j] = 2 * particles.radius[i] - particles.position[i, j] # reflect about x=r axis
                 measures.deltaMomentum += abs(2*particles.mass[i]*particles.velocity[i, j]) # [DA/ps]
                 measures.wallCollisions += 1
-            elif particles.position[i, j] > (sim.boxsize[j] - particles.radius[i]):
+            elif particles.position[i, j] > (params.boxsize[j] - particles.radius[i]):
                 particles.velocity[i, j] = -particles.velocity[i, j]
-                particles.position[i, j] = 2 * (sim.boxsize[j] - particles.radius[i]) - particles.position[i, j] # reflect about x=L-r axis
+                particles.position[i, j] = 2 * (params.boxsize[j] - particles.radius[i]) - particles.position[i, j] # reflect about x=L-r axis
                 measures.deltaMomentum += abs(2*particles.mass[i]*particles.velocity[i, j]) # [DA/ps]
                 measures.wallCollisions += 1
     # profile.timeWalls += toc()
@@ -79,9 +79,9 @@ def update(sim):
     # Swap momentum components parallel to vector connecting particles
     #. need smarter collision detector - ie trace each back to point where just touching to find correct distance vector
     # tic()
-    if sim.includeGasCollisions:
-        for i in range(sim.nparticles - 1):
-            for j in range(i + 1, sim.nparticles):
+    if params.includeGasCollisions:
+        for i in range(params.nparticles - 1):
+            for j in range(i + 1, params.nparticles):
                 distanceVector = particles.position[i,:] - particles.position[j,:]
                 distance = np.linalg.norm(distanceVector) 
                 if distance < (particles.radius[i] + particles.radius[j]):

@@ -2,7 +2,7 @@
 psim
 Particle Simulator
 
-All variables are stored in a namespace variable, 'sim' -
+All variables are stored in a namespace variable, 'params' -
 so can pass data around easily between functions.
 """
 
@@ -16,45 +16,45 @@ import profile
 import integrate
 
 
-def initialize(sim):
+def initialize(params):
     """
     Initialize the experiment
     """
-    # add more info to sim namespace
-    sim.ntimesteps = int(sim.duration / sim.timedelta) # total number of time steps during run    
-    box.initialize(sim) # get box dimensions etc
-    particles.initialize(sim) # initialize particle positions and velocities
-    sample.initialize(sim) # initialize sample counters and arrays
-    measure.initialize(sim) # initialize measures
-    expect.initialize(sim) # calculate expected values
-    views.initialize(sim) # display initial messages, initialize charts
-    profile.initialize(sim) # initialize the profile to track cpu time
+    # add more info to params namespace
+    params.ntimesteps = int(params.duration / params.timedelta) # total number of time steps during run    
+    box.initialize(params) # get box dimensions etc
+    particles.initialize(params) # initialize particle positions and velocities
+    sample.initialize(params) # initialize sample counters and arrays
+    measure.initialize(params) # initialize measures
+    expect.initialize(params) # calculate expected values
+    views.initialize(params) # display initial messages, initialize charts
+    profile.initialize(params) # initialize the profile to track cpu time
 
 
-def run(sim):
+def run(params):
     """
     Run the experiment
     """
-    samples = sim.samples
-    for sim.ntimestep in range(0, sim.ntimesteps):
-        sim.currentTime = sim.ntimestep * sim.timedelta
-        particles.update(sim) # get potential energy
+    samples = params.samples
+    for params.ntimestep in range(0, params.ntimesteps):
+        params.currentTime = params.ntimestep * params.timedelta
+        particles.update(params) # get potential energy
         if samples.sampleCountdown == 0:
-            measure.update(sim) # measure system properties
-            sample.update(sim) # record samples
-            views.update(sim)  # update views
+            measure.update(params) # measure system properties
+            sample.update(params) # record samples
+            views.update(params)  # update views
             samples.nsample += 1
             samples.sampleCountdown = samples.sampleInterval
-        integrate.update(sim) # integrate equations of motion, handle collisions
+        integrate.update(params) # integrate equations of motion, handle collisions
         samples.sampleCountdown -= 1
 
 
-def finalize(sim):
+def finalize(params):
     """
     Finish the experiment
     """
-    measure.finalize(sim)
-    views.finalize(sim)
+    measure.finalize(params)
+    views.finalize(params)
 
 
 def main():
@@ -66,11 +66,9 @@ def main():
     # or a default experiment.
     from params import params 
 
-    sim = params
-
-    initialize(sim)
-    run(sim)
-    finalize(sim)
+    initialize(params)
+    run(params)
+    finalize(params)
 
 
 # if this file is being run as the main module, eg with `python psim`,

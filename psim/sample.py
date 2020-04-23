@@ -6,12 +6,12 @@ import numpy as np
 from addict import Dict
 
 
-def initialize(sim):
+def initialize(params):
     samples = Dict()
 
-    samples.nsamples = sim.nsamples
-    samples.sampleInterval = sim.ntimesteps / sim.nsamples # for sample counter
-    samples.sampleTime = sim.timedelta * samples.sampleInterval # [ps] time interval for samples
+    samples.nsamples = params.nsamples
+    samples.sampleInterval = params.ntimesteps / params.nsamples # for sample counter
+    samples.sampleTime = params.timedelta * samples.sampleInterval # [ps] time interval for samples
     samples.sampleCountdown = 0
     samples.nsample = 0
     
@@ -27,20 +27,20 @@ def initialize(sim):
     # samples.temperatureDist = np.zeros((samples.nsamples, nxSamples))
 
     # # save initial velocity for histogram
-    # if sim.includeVelocityHistogram:
+    # if params.includeVelocityHistogram:
     #     vxInit = particles.velocity[:, 1]
     #     vInit = np.sqrt(np.sum(np.square(particles.velocity), axis=1))
 
     # return samples
-    sim.samples = samples
+    params.samples = samples
 
 
-def update(sim):
-    measures = sim.measures
-    samples = sim.samples
+def update(params):
+    measures = params.measures
+    samples = params.samples
 
     # print(measures.wallCollisions)
-    samples.time[samples.nsample] = sim.currentTime
+    samples.time[samples.nsample] = params.currentTime
     samples.pressure[samples.nsample] = measures.pressure
     samples.temperature[samples.nsample] = measures.temperature
     samples.wallCollisions[samples.nsample] = measures.wallCollisions
