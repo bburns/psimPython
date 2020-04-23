@@ -2,7 +2,7 @@
 psim
 Particle Simulator
 
-All variables are stored in a module-level namespace variable, 'sim' -
+All variables are stored in a namespace variable, 'sim' -
 so can pass data around easily between functions.
 It's a Dict object from the 'addict' library, which lets you access values like
 foo.bar instead of foo['bar']. 
@@ -59,10 +59,23 @@ def finalize(sim):
     views.finalize(sim)
 
 
+def main():
+    """
+    Import and run an experiment
+    """
 
-if __name__ == '__main__':
-    from params import params
+    # import experimental parameters from file specified on command line, 
+    # or a default experiment.
+    from params import params 
+
     sim = params
+
     initialize(sim)
     run(sim)
     finalize(sim)
+
+
+# if this module is being run as a script, call the main() function.
+# this is just a python convention.
+if __name__ == '__main__':
+    main()

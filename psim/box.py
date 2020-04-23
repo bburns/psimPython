@@ -1,3 +1,8 @@
+"""
+box
+Defines the box and compartments, if any. 
+"""
+
 from addict import Dict
 import numpy as np
 

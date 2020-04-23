@@ -1,15 +1,17 @@
-#-----------------------------------------------------------------------------------
-# Constants and Units
-#-----------------------------------------------------------------------------------
-# mass:       Daltons (D) (1.66e-26 kg)
-# Length:     Angstroms (A) (1e-10 m)
-# Time:       Picosecs (ps) (1e-12 sec)
-#
-# force:      mewton "Molecular Newton" = DA/ps^2 
-# Energy:     moule "Molecular Joule" = DA^2/ps^2 
-# pressure:   mascal "Molecular Pascal" = D/A/ps^2 
-# volume:     molvo "Molecular volume" = A^3 
-#-----------------------------------------------------------------------------------
+"""
+-----------------------------------------------------------------------------------
+Constants and Units
+-----------------------------------------------------------------------------------
+mass:       Daltons (D) (1.66e-26 kg)
+Length:     Angstroms (A) (1e-10 m)
+Time:       Picosecs (ps) (1e-12 sec)
+
+force:      mewton "Molecular Newton" = DA/ps^2 
+Energy:     moule "Molecular Joule" = DA^2/ps^2 
+pressure:   mascal "Molecular Pascal" = D/A/ps^2 
+volume:     molvo "Molecular volume" = A^3 
+-----------------------------------------------------------------------------------
+"""
 
 avogadro = 6.022e23 # Avogadro's number
 kbJoules = 1.380658e-23 # Boltzmann's constant [Joules/K]
