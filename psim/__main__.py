@@ -15,7 +15,7 @@ import sampler
 import expecter
 import measurer
 import profiler
-import integrator
+import integrate
 
 
 def initialize(sim):
@@ -47,7 +47,7 @@ def run(sim):
             views.update(sim)  # update views
             samples.nsample += 1
             samples.sampleCountdown = samples.sampleInterval
-        integrator.update(sim) # integrate equations of motion, handle collisions
+        integrate.update(sim) # integrate equations of motion, handle collisions
         samples.sampleCountdown -= 1
 
 
