@@ -1,0 +1,5 @@
+addict
+hjson
+matplotlib
+numpy
+pytest

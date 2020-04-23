@@ -17,6 +17,7 @@ psim is a particle simulator that puts a number of particles in a box, measures 
 - set up continuous integration to run tests while developing - use Travis CI and GitHub (?)
 - track code coverage of tests and aim for 100%
 - use venv or conda environment (or Docker?)
+- use squashed commits for cleaner repo history
 - make sure runs cross-platform on Windows, Mac, Linux
 - maintain minimal contact between modules [currently passing things through namespaces - better way? define fns?]
 - make realtime charts and visualizations
