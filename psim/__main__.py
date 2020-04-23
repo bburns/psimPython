@@ -75,7 +75,8 @@ def main():
     finalize(sim)
 
 
-# if this module is being run as a script, call the main() function.
-# this is just a python convention.
+# if this file is being run as the main module, eg with `python psim`,
+# then call the main() function.
+# see https://stackoverflow.com/questions/4041238/why-use-def-main
 if __name__ == '__main__':
     main()
