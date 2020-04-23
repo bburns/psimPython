@@ -61,7 +61,7 @@ Future experiments could include -
 
 ## Developing
 
-The source is in `psim` - running `python psim` will load the file `__main__`, which is a Python convention.
+The source is in `psim` - running `python psim` will load the file `__main__` (a Python convention).
 
 
 ## License
