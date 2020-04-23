@@ -1,6 +1,9 @@
 name: psim
 dependencies:
   - python=3.6
-  - numpy=1.9.*
-  # - pip:
-  #   - Flask-Testing
+  - matplotlib
+  - numpy
+  - pytest
+  - pip:
+    - addict
+    - hjson
