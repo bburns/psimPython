@@ -1,0 +1,44 @@
+{
+  name: Ideal Gas Law
+  description: Verify ideal gas law by calculating P=nRT/V at different values
+  notes: '''
+  Ideal Gas Law: PV=nRT
+  R is the ideal, or universal, gas constant, equal to Boltzmann * Avogadro constants
+  https://en.wikipedia.org/wiki/Ideal_gas_law
+
+  start sim with gaussian velocity distribution corresponding to some temperature.
+  calculate the pressure on the walls from the momentum transfer.
+  '''
+
+  # timerange
+  duration: 10 # [ps]
+  timedelta: 0.01 # [ps]
+  nsamples: 20
+
+  # box
+  boxsize: [50, 50, 50],  # [A]  (range from 10-100 is good) (ndimensions follows from this)
+
+  species: [
+    {
+      name: Argon
+      mass: 40 # [Daltons]
+      radius: 0.95 # [A]
+      quantity: 10
+      temperature: 100 # [K]
+      position: random
+      velocity: gaussian
+      color: b
+    }
+  ]
+
+  # interactions
+  // potentialType: 'none' # hard spheres - no attraction, so no potential energy
+  potentialType: 'Lennard-Jones'
+  // includeGasCollisions: true # only collisions with walls matter for this experiment
+  // includeMembrane: true
+
+  # display
+  showCharts: true
+  // show3d: true
+  // showVelocityHistogram: false
+}

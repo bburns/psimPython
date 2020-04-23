@@ -1,0 +1,6 @@
+*.lnk
+*.pyc
+runs/
+old/
+.DS_Store
+.git_backup/
