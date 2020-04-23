@@ -1,17 +1,6 @@
 """
 psim
 Particle Simulator
-"""
-
-# from params import params # the experiment parameters
-# import experiment
-
-# experiment.initialize(params)
-# experiment.run()
-# experiment.finalize()
-
-"""
-Run an experiment
 
 All variables are stored in a module-level namespace variable, 'sim' -
 so can pass data around easily between functions.
@@ -29,21 +18,11 @@ import profiler
 import integrator
 
 
-#. call this globals
-#. define what's in it
-#. make some kind of struct?
-sim = None # namespace with particle arrays etc
-
-
-def initialize(params):
+def initialize(sim):
     """
     Initialize the experiment
     """
-    # get parameters into namespace
-    global sim
-    sim = params
-
-    # now add more info to namespace
+    # add more info to sim namespace
     sim.ntimesteps = int(sim.duration / sim.timedelta) # total number of time steps during run    
     box.initialize(sim) # get box dimensions etc
     particles.initialize(sim) # initialize particle positions and velocities
@@ -54,7 +33,7 @@ def initialize(params):
     profiler.initialize(sim) # initialize the profiler to track cpu time
 
 
-def run():
+def run(sim):
     """
     Run the experiment
     """
@@ -72,7 +51,7 @@ def run():
         samples.sampleCountdown -= 1
 
 
-def finalize():
+def finalize(sim):
     """
     Finish the experiment
     """
@@ -83,6 +62,7 @@ def finalize():
 
 if __name__ == '__main__':
     from params import params
-    initialize(params)
-    run()
-    finalize()
+    sim = params
+    initialize(sim)
+    run(sim)
+    finalize(sim)
