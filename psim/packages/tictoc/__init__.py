@@ -1,4 +1,8 @@
-# see https://stackoverflow.com/questions/5849800/what-is-the-python-equivalent-of-matlabs-tic-and-toc-functions
+"""
+tictoc
+matlab-like tic and toc functions
+see https://stackoverflow.com/questions/5849800/what-is-the-python-equivalent-of-matlabs-tic-and-toc-functions
+"""
 
 import time
 
