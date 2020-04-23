@@ -4,8 +4,6 @@ Particle Simulator
 
 All variables are stored in a namespace variable, 'sim' -
 so can pass data around easily between functions.
-It's a Dict object from the 'addict' library, which lets you access values like
-foo.bar instead of foo['bar']. 
 """
 
 import particles
