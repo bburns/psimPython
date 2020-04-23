@@ -1,5 +1,5 @@
 """
-expecter
+expect
 Calculate expected values for experiment
 """
 

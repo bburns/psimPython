@@ -2,7 +2,7 @@ from addict import Dict
 
 def initialize(sim):
     profile = Dict()
-    # Initialize profiler values
+    # Initialize profile values
     profile.timeWalls = 0
     profile.timeGas = 0
     profile.timeProperties = 0

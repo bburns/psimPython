@@ -14,6 +14,7 @@ psim is a particle simulator that puts a number of particles in a box, measures 
 
 - try structuring a Python project by breaking it down into smaller files
 - define some tests to make sure program is working as expected
+- set up continuous integration to run tests while developing
 - maintain minimal contact between modules [currently passing things through namespaces - better way? define fns?]
 - make realtime charts and visualizations
 - export trajectory data and display in other programs

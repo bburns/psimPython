@@ -53,7 +53,7 @@ def update(sim):
 
 
     # clear cumulative variables
-    #. should probably combine measurer and sampler - this is awkward
+    #. should probably combine measure and sample - this is awkward
     measures.deltaMomentum = 0
     measures.wallCollisions = 0
     measures.gasCollisions = 0

@@ -11,10 +11,10 @@ foo.bar instead of foo['bar'].
 import particles
 import box
 import views
-import sampler
-import expecter
-import measurer
-import profiler
+import sample
+import expect
+import measure
+import profile
 import integrate
 
 
@@ -26,11 +26,11 @@ def initialize(sim):
     sim.ntimesteps = int(sim.duration / sim.timedelta) # total number of time steps during run    
     box.initialize(sim) # get box dimensions etc
     particles.initialize(sim) # initialize particle positions and velocities
-    sampler.initialize(sim) # initialize sample counters and arrays
-    measurer.initialize(sim) # initialize measures
-    expecter.initialize(sim) # calculate expected values
+    sample.initialize(sim) # initialize sample counters and arrays
+    measure.initialize(sim) # initialize measures
+    expect.initialize(sim) # calculate expected values
     views.initialize(sim) # display initial messages, initialize charts
-    profiler.initialize(sim) # initialize the profiler to track cpu time
+    profile.initialize(sim) # initialize the profile to track cpu time
 
 
 def run(sim):
@@ -42,8 +42,8 @@ def run(sim):
         sim.currentTime = sim.ntimestep * sim.timedelta
         particles.update(sim) # get potential energy
         if samples.sampleCountdown == 0:
-            measurer.update(sim) # measure system properties
-            sampler.update(sim) # record samples
+            measure.update(sim) # measure system properties
+            sample.update(sim) # record samples
             views.update(sim)  # update views
             samples.nsample += 1
             samples.sampleCountdown = samples.sampleInterval
@@ -55,7 +55,7 @@ def finalize(sim):
     """
     Finish the experiment
     """
-    measurer.finalize(sim)
+    measure.finalize(sim)
     views.finalize(sim)
 
 
