@@ -54,7 +54,12 @@ Future experiments could include -
 ## Running
 
     cd psimPython
-    python src/psim.py
+    python psim
+
+
+## Developing
+
+The source is in `psim` - running `python psim` will load the file `__main__`, which is a Python convention.
 
 
 ## License
