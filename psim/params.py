@@ -1,10 +1,10 @@
 """
-params.py
-read in experiment parameters from file specified at console
+params
+read in experiment parameters from file specified at console, or a default file.
 """
 
 import sys
-import hjson # human json - an easy to read format for config files
+import hjson # "human json" - an easy to read format for config files
 
 
 # access dict keys as attributes - eg can say foo.bar instead of foo['bar']

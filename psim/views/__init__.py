@@ -1,11 +1,12 @@
 """
-Views - includes console output, charts, and 2d/3d visualizations. 
+views
+includes console output, charts, and 2d/3d visualizations. 
 """
 
-
-from .charts import *
-from .console import *
-from .visualizations import *
+# for some reason can't just say `import charts` etc here
+from . import charts
+from . import console
+from . import visualizations
 
 
 def initialize(sim):
@@ -22,4 +23,3 @@ def finalize(sim):
     console.finalize(sim)
     if sim.showCharts: charts.finalize(sim)
     if sim.show3d: visualizations.finalize(sim)
-
