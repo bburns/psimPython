@@ -70,7 +70,18 @@ Future experiments could include -
 
 ## Developing
 
-The source is in `psim` - running `python psim` will load the file `psim/__main__` (a Python convention).
+The source is in `psim` - running `python psim` will load the file `psim/__main__.py` (a Python convention).
+
+
+## Configuration
+
+Configuration files
+
+- .travis[-off].yml - Travis continuous integration settings - when on, builds and tests the app on different OS's and configurations. Build status and history is available at https://travis-ci.org/github/bburns/psimPython
+- environment.yml - list of dependencies, as used by the conda package manager
+- requirements.txt - list of dependencies, as used by the pip Python package manager
+- .env - environment variables
+- .gitignore - files for git to ignore
 
 
 ## License
