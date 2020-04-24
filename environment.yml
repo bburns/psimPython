@@ -4,6 +4,7 @@ dependencies:
   - matplotlib
   - numpy
   - pytest
+  - pytest-cov
   - pip:
     - addict
     - hjson
