@@ -3,3 +3,4 @@ hjson
 matplotlib
 numpy
 pytest
+pytest-watch

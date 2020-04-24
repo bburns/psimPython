@@ -73,6 +73,17 @@ Future experiments could include -
 The source is in `psim` - running `python psim` will load the file `psim/__main__.py` (a Python convention).
 
 
+## Testing
+
+Tests are run with **pytest-watch**, which runs **pytest** when source files change - 
+
+    pytest-watch
+
+or
+
+    ptw
+
+
 ## Configuration
 
 Configuration files
