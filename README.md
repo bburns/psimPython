@@ -9,16 +9,18 @@ psim is a particle simulator that puts a number of particles in a box, measures 
 
 - run small-scale thermodynamic experiments for entropy, enthalpy, reaction kinetics
 - use dimensionless parameters - output with real units
+- run experiments that collect steady-state values over different parameters and compare with expected values (e.g. for ideal gas law, comparing PV = nRT for different P, V, T values)
  
 ### Programming
 
 - structure a Python project by breaking it down into smaller modules
-- define tests to make sure program math is working as expected
-- set up continuous integration to run tests while developing - use Travis CI and GitHub (?)
-- track code coverage of tests and aim for 100%
-- use venv or conda environment (or Docker?)
-- use squashed commits for cleaner repo history
-- make sure runs cross-platform on Windows, Mac, Linux
+- define tests to make sure program is working as expected
+- run tests when relevant source files change (using pytest-watch)
+- use continuous integration to run tests while developing - use Travis CI to do cross-platform tests on each commit (?)
+- track code coverage of tests - aim for 100%
+- use venv or conda environment or Docker?
+- use squashed commits for cleaner git history
+- run cross-platform on Windows, Mac, Linux
 - maintain minimal contact between modules [currently passing things through namespaces - better way? define fns?]
 - make realtime charts and visualizations
 - export trajectory data and display in other programs
@@ -26,10 +28,10 @@ psim is a particle simulator that puts a number of particles in a box, measures 
 - reimplement in Julia and compare speed
 - reimplement in JavaScript with visualizations and compare speed
 
-### Reporting
+### Report
 
 - write a report summarizing findings
-- explain how to hack on the app and write more experiments
+- explain how to work on the app and write more experiments
 
 
 ## Experiments
@@ -59,18 +61,22 @@ Future experiments could include -
 
 ## Setup
 
-    git clone psimPython
+Clone the git repo (grab source files from GitHub) -
+
+    git clone https://github.com/bburns/psimPython
+
+Install Python dependencies - 
+
+    cd psimPython
+    [conda create -n psim ?]
+    conda install --file environment.yml
 
 
 ## Running
 
-    cd psimPython
+Run the app (will load the file `psim/__main__.py` (a Python convention) -
+
     python psim
-
-
-## Developing
-
-The source is in `psim` - running `python psim` will load the file `psim/__main__.py` (a Python convention).
 
 
 ## Testing
@@ -82,6 +88,11 @@ Tests are run with **pytest-watch**, which runs **pytest** when source files cha
 or
 
     ptw
+
+
+## Developing
+
+The source is in `psim` - experiment definition files are in `experiments`. 
 
 
 ## Configuration
