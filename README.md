@@ -83,16 +83,26 @@ Run the app (will load the file `psim/__main__.py` (a Python convention) -
 
 Tests are run with **pytest-watch**, which runs **pytest** when source files change - 
 
-    pytest-watch
+    pytest-watch  # or ptw
 
-or
+or for one-off testing - 
 
-    ptw
+    pytest
 
 
 ## Developing
 
 The source is in `psim` - experiment definition files are in `experiments`. 
+
+
+## Dependencies
+
+- Python 3
+- addict - a simple namespace/dictionary library
+- matplotlib - plot routines like MatLab
+- numpy - numeric arrays
+- pytest - runs files named `test_*.py`
+- pytest-watch - runs pytest when source files change - https://github.com/joeyespo/pytest-watch
 
 
 ## Configuration
