@@ -10,11 +10,12 @@ from constants import *
 
 def initialize(params):
 
-    expected = Dict()
+    expected = Dict() # simple namespace
 
     #. some of these are per species - how do? get avg over species or sum them?
+    #. get per-species values and some aggregation (sum or avg etc)
     # expected.pressure = params.nparticles * kT / params.box.volume * atmospheresPerMascal # [atm]
-    
+
     # get sum over species
     pressure = 0
     for species in params.species:
@@ -53,5 +54,5 @@ def initialize(params):
     #     s2 = speed * (-2:1/50:2) # 1 dim speed range
     #     expectedSpeedDistribution1d = nparticles/2 * sqrt (atomMass/(2*pi*kT)) * exp(-0.5 * atomMass * s2.^2 / kT)
 
-    # return expected
+    # put expected namespace on params namespace
     params.expected = expected
